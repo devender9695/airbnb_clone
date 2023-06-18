@@ -20,11 +20,15 @@ Router.use(express.urlencoded({ extended: false }));
 
 //Storage Setting
 let storage = multer.diskStorage({
-  destination: './public/uploads',
+ destination: function (req, file, cb) {
+            cb(null, ".public/uploads")
+        },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname);
   },
 });
+
+
 
 //Upload Setting
 let upload = multer({
